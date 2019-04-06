@@ -1,15 +1,15 @@
-export class Hero {
-    id = 2;
-    name;
-
-    constructor(name) {
-        this.name = name;
+class Hero {
+    constructor() {
+        this.id = 2;
+        this.name = 'Joe';
     }
 
     myName() {
         return this.name;
     }
-  }
+}
 
-  let hero = new Hero('Erik');
-  console.log(hero.myName());
+let hero = new Hero();
+console.log(hero.myName());
+
+module.exports = Hero;
