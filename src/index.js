@@ -1,15 +1,11 @@
-class Hero {
-    constructor() {
-        this.id = 2;
-        this.name = 'Joe';
-    }
+import './styles/index.css';
 
-    myName() {
-        return this.name;
-    }
+function component(text) {
+    let element = document.createElement('div');
+
+    element.innerHTML = text;
+
+    return element;
 }
 
-let hero = new Hero();
-console.log(hero.myName());
-
-module.exports = Hero;
+document.body.appendChild(component('Webpack working'));
