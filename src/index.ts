@@ -1,7 +1,7 @@
 import './styles/index.scss';
 import Picture from './assets/smiley.jpg';
 
-function component(text) {
+function component(text: string): HTMLDivElement {
     let element = document.createElement('div');
 
     element.innerHTML = text;

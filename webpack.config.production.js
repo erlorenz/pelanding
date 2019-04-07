@@ -8,7 +8,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
     mode: 'production',
-    entry: './src/index.js',
+    entry: './src/index.ts',
     output: {
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'dist'),
@@ -24,6 +24,7 @@ module.exports = {
                 test: /\.(png|svg|jpg|gif)$/,
                 use: ['file-loader'],
             },
+            { test: /\.tsx?$/, loader: 'ts-loader', exclude: /node_modules/ },
         ],
     },
     plugins: [
@@ -39,5 +40,9 @@ module.exports = {
     ],
     optimization: {
         minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
+    },
+    resolve: {
+        // Add `.ts` and `.tsx` as a resolvable extension.
+        extensions: ['.ts', '.tsx', '.js'],
     },
 };

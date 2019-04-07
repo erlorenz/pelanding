@@ -6,7 +6,7 @@ const webpack = require('webpack');
 
 module.exports = {
     mode: 'development',
-    entry: './src/index.js',
+    entry: './src/index.ts',
     output: {
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'dist'),
@@ -22,6 +22,7 @@ module.exports = {
                 test: /\.(png|svg|jpg|gif)$/,
                 use: ['file-loader'],
             },
+            { test: /\.tsx?$/, loader: 'ts-loader', exclude: /node_modules/ },
         ],
     },
     devtool: 'inline-source-map',
@@ -38,4 +39,8 @@ module.exports = {
         }),
         new webpack.HotModuleReplacementPlugin(),
     ],
+    resolve: {
+        // Add `.ts` and `.tsx` as a resolvable extension.
+        extensions: ['.ts', '.tsx', '.js'],
+    },
 };
