@@ -2,12 +2,13 @@
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
     mode: 'development',
     entry: './src/index.js',
     output: {
-        filename: 'bundle.js',
+        filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'dist'),
     },
     module: {
@@ -22,6 +23,12 @@ module.exports = {
                 use: ['file-loader'],
             },
         ],
+    },
+    devtool: 'inline-source-map',
+    devServer: {
+        contentBase: './dist',
+        open: true,
+        hot: true,
     },
     plugins: [
         new CleanWebpackPlugin(),
