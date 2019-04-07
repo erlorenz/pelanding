@@ -16,3 +16,5 @@ function component(text: string): HTMLDivElement {
 }
 
 document.body.appendChild(component('Webpack working'));
+
+console.log(process.env.NODE_ENV);
