@@ -7,13 +7,14 @@ const path = require('path');
 module.exports = merge(common, {
   mode: 'development',
   output: {
-    filename: '[name].[hash].bundle.js', // cant use contenthash in dev with HMR
+    filename: '[name].bundle.js', // dont use hash in dev mode
+    chunkFilename: '[name].chunk.js',
     path: path.resolve(__dirname, 'dist'),
   },
   module: {
     rules: [
       {
-        test: /\.scss$/,
+        test: /\.(s?css)$/, // Sass or CSS
         use: ['style-loader', 'css-loader', 'sass-loader'],
         // Style loader for HMR in development
       },
@@ -26,4 +27,9 @@ module.exports = merge(common, {
     hot: true,
   },
   plugins: [new webpack.HotModuleReplacementPlugin()],
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
+  },
 });

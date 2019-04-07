@@ -10,13 +10,14 @@ const path = require('path');
 module.exports = merge(common, {
   mode: 'production',
   output: {
-    filename: '[name].[contenthash].bundle.js',
-    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].[chunkhash].js',
+    chunkFilename: '[name].[chunkhash].chunk.js',
+    path: path.resolve(process.cwd(), 'dist'),
   },
   module: {
     rules: [
       {
-        test: /\.scss$/,
+        test: /\.(s?css)$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
       },
     ],
@@ -30,5 +31,27 @@ module.exports = merge(common, {
   ],
   optimization: {
     minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
+    splitChunks: {
+      chunks: 'all',
+      minSize: 30000,
+      minChunks: 1,
+      maxAsyncRequests: 5,
+      maxInitialRequests: 3,
+      name: true,
+      cacheGroups: {
+        commons: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendor',
+          chunks: 'all',
+        },
+        main: {
+          chunks: 'all',
+          minChunks: 2,
+          reuseExistingChunk: true,
+          enforce: true,
+        },
+      },
+    },
+    runtimeChunk: true,
   },
 });
